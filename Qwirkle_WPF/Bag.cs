@@ -17,11 +17,11 @@ namespace Qwirkle_WPF
                 Bag.tilesInBag.Clear();
                 for (int duplicateLoop = 0; duplicateLoop < duplicateCount; duplicateLoop++) //create the appropriate number of duplicates
                 {
-                    for (int colourLoop = 0; colourLoop < colourCount; colourLoop++) //loop through the colours
+                    for (int colourLoop = 1; colourLoop < (colourCount+1); colourLoop++) //loop through the colours
                     {
-                        for (int shapeLoop = 0; shapeLoop < shapeCount; shapeLoop++) // loop through the symbols
+                        for (int shapeLoop = 1; shapeLoop < (shapeCount+1); shapeLoop++) // loop through the symbols
                         {
-                            tilesInBag.Add(new Tile(colourLoop, shapeLoop));
+                            tilesInBag.Add(new Tile((EnumColour)colourLoop, (EnumShape)shapeLoop));
                         }
                     }
                 }

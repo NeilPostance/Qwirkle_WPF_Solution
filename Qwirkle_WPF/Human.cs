@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Qwirkle_WPF
 {
-    class Human:Player
+    public class Human:Player
     {
         
     }

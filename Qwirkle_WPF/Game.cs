@@ -152,13 +152,13 @@ namespace Qwirkle_WPF
                         // in addition to touching each other, they must all be placed along the same axis;
                         if (currentPlayer.placedTiles.Count() > 1)
                         {
-                            int existingAxis = Tile.AxisChecker(currentPlayer.placedTiles[0], currentPlayer.placedTiles[1]);
+                            EnumAxis existingAxis = Tile.AxisChecker(currentPlayer.placedTiles[0], currentPlayer.placedTiles[1]);
                             /*
                                 0 = no axis match (shouldn't be possible)
                                 1 = horizontal axis match
                                 2 = vertical axis match
                             */
-                            if (existingAxis == 0)
+                            if (existingAxis == EnumAxis.None)
                             {
                                 Console.WriteLine("Somehow there are placed tiles which do not share an axis");
                                 return false;

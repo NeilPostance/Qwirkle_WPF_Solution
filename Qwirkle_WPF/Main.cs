@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using System.Collections.Generic;
+
 
 namespace Qwirkle_WPF
 {
@@ -10,27 +12,37 @@ namespace Qwirkle_WPF
         Up,
         Down
     }
+
+    public enum EnumAxis
+    {
+        None,
+        Horizontal,
+        Vertical,
+        SameLocation
+    }
+
     public enum EnumColour
     {
+        None,
         Red,
         Orange,
         Blue,
         Green,
         Yellow,
-        Purple,
-        None
+        Purple
     }
 
     public enum EnumShape
     {
+        None,
         Square,
         Circle,
         Bang,
         Star,
         Club,
-        Diamond,
-        None
+        Diamond
     }
+
 
     public class MainClass
     {
@@ -41,7 +53,7 @@ namespace Qwirkle_WPF
         public readonly static int startingTileCount = 6; //the number of tiles that each player starts with
         private readonly static int duplicateTileCount = 3; //how many duplicates of each tile are in the bag;
 
-
+        
 
         public static int GridRows { get; } = 10;
         public static int GridColumns { get; } = 10;

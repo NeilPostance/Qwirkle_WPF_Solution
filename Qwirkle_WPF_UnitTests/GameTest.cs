@@ -17,7 +17,7 @@ namespace Qwirkle_WPF_Tests
             Grid.Empty();
             for (int i = 0; i<6; i++)
             {
-                Grid.PlaceTile(new Tile(0, i), 0, i);
+                Grid.PlaceTile(new Tile((EnumColour)0, (EnumShape)i), 0, i);
             }
 
             Grid.QueryNearbyLocation(0, 0, 0, 0, out Tile startingTile);
@@ -31,7 +31,7 @@ namespace Qwirkle_WPF_Tests
             Grid.Empty();
             for (int i = 0; i < 6; i++)
             {
-                Grid.PlaceTile(new Tile(0, i), 0, i);
+                Grid.PlaceTile(new Tile((EnumColour)0, (EnumShape)i), 0, i);
             }
 
             Grid.QueryNearbyLocation(0, 0, 0, 0, out Tile startingTile);
@@ -45,7 +45,7 @@ namespace Qwirkle_WPF_Tests
             Grid.Empty();
             for (int i = 0; i < 5; i++)
             {
-                Grid.PlaceTile(new Tile(0, i), i, 0);
+                Grid.PlaceTile(new Tile((EnumColour)0, (EnumShape)i), i, 0);
             }
 
             Grid.QueryNearbyLocation(0, 0, 0, 0, out Tile startingTile);
@@ -59,7 +59,7 @@ namespace Qwirkle_WPF_Tests
             Grid.Empty();
             for (int i = 0; i < 5; i++)
             {
-                Grid.PlaceTile(new Tile(0, i), i, 0);
+                Grid.PlaceTile(new Tile((EnumColour)0, (EnumShape)i), i, 0);
             }
 
             Grid.QueryNearbyLocation(0, 0, 0, 0, out Tile startingTile);

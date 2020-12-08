@@ -6,8 +6,6 @@ namespace Qwirkle_WPF
     {
         private static int? count;
 
-       
-
         public EnumColour Colour { get; }
         public EnumShape Shape { get; }
 
@@ -15,49 +13,37 @@ namespace Qwirkle_WPF
 
         public (int, int) GridXref { get; set; }
 
-        public Tile(int colour, int shape)
-        {
-            if (count == null)
-            {
-                count = 0;
-                Console.WriteLine("Creating First Tile!");
-            }
-            else
-            {
-                count++;
-            }
-            this.Colour = (EnumColour)colour;
-            this.Shape = (EnumShape)shape;
-            this.IsPlaceholder = false;
-
-            //Id = (int)count;
-            //Console.WriteLine($"Created Tile with c{this.Colour}, s{this.Shape}, id:{this.Id}");
-        }
 
         public Tile(EnumColour colour, EnumShape shape)
         {
+            
+
+            if(colour==EnumColour.None && shape == EnumShape.None)
+            {
+                this.Colour = EnumColour.None;
+                this.Shape = EnumShape.None;
+                this.IsPlaceholder = true;
+            }
+            else if (colour == EnumColour.None || shape == EnumShape.None)
+            {
+                Console.WriteLine("You must specify both a shape and a colour");
+                return;
+            }
+            else
+            {
+                this.Colour = colour;
+                this.Shape = shape;
+                this.IsPlaceholder = false;
+            }
+
             if (count == null)
             {
                 count = 0;
-                Console.WriteLine("Creating First Tile!");
             }
             else
             {
                 count++;
             }
-            this.Colour = colour;
-            this.Shape = shape;
-            this.IsPlaceholder = false;
-
-            //Id = (int)count;
-            //Console.WriteLine($"Created Tile with c{this.Colour}, s{this.Shape}, id:{this.Id}");
-        }
-
-        public Tile(bool isPlaceholder)
-        {
-            this.IsPlaceholder = isPlaceholder;
-            this.Colour = EnumColour.None;
-            this.Shape = EnumShape.None;
         }
 
         public Tile()
@@ -65,6 +51,15 @@ namespace Qwirkle_WPF
             this.IsPlaceholder = true;
             this.Colour = EnumColour.None;
             this.Shape = EnumShape.None;
+
+            if (count == null)
+            {
+                count = 0;
+            }
+            else
+            {
+                count++;
+            }
         }
 
         
@@ -114,32 +109,34 @@ namespace Qwirkle_WPF
                 return false;
         }
 
-        public static int AxisChecker(Tile tile1, Tile tile2)
+        public static EnumAxis AxisChecker(Tile tile1, Tile tile2)
         {
             var (t1Row, t1Column) = tile1.GridXref;
             var (t2Row, t2Column) = tile2.GridXref;
 
             if (t1Row == t2Row && t1Column != t2Column)
-                return 1; //horizontal
+                return EnumAxis.Horizontal; //horizontal
             else if (t1Column == t2Column && t1Row != t2Row)
-                return 2; //vertical
+                return EnumAxis.Vertical; //vertical
+            else if (t1Column == t2Column && t1Row == t2Row)
+                return EnumAxis.SameLocation;
             else
-                return 0; //no axis match
+                return EnumAxis.None; //no axis match
         }
 
-        public static bool AxisMatch(Tile tile1, Tile tile2, int axis)
+        public static bool AxisMatch(Tile tile1, Tile tile2, EnumAxis axis)
         {
             var (t1Row, t1Column) = tile1.GridXref;
             var (t2Row, t2Column) = tile2.GridXref;
 
             switch (axis)
             {
-                case 1: //horizontal
+                case EnumAxis.Horizontal: 
                     if (t1Row == t2Row)
                         return true;
                     else
                         return false;
-                case 2: //vertical
+                case EnumAxis.Vertical: 
                     if (t1Column == t2Column)
                         return true;
                     else
@@ -149,18 +146,18 @@ namespace Qwirkle_WPF
             }
         }
 
-        public static bool AxisMatch(int candidateRow, int candidateColumn, Tile existingTile, int axis)
+        public static bool AxisMatch(int candidateRow, int candidateColumn, Tile existingTile, EnumAxis axis)
         {
             var (existingRow, existingColumn) = existingTile.GridXref;
 
             switch (axis)
             {
-                case 1: //horizontal
+                case EnumAxis.Horizontal: 
                     if (candidateRow == existingRow)
                         return true;
                     else
                         return false;
-                case 2: //vertical
+                case EnumAxis.Vertical: 
                     if (candidateColumn == existingColumn)
                         return true;
                     else

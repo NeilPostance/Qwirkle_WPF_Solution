@@ -16,13 +16,18 @@ namespace Qwirkle_WPF
             {
                 try
                 {
-                    Console.WriteLine(t.ToString());
+                    if (t.Colour == EnumColour.None)
+                        continue;
+                    else if (t.Shape == EnumShape.None)
+                        continue;
+                    else
+                        tileCount++;
                 }
                 catch (NullReferenceException)
                 {
-                    Console.WriteLine("No colour/shape!");
+                    continue;
                 }
-                tileCount++;
+                
             }
             return tileCount;
         }
@@ -157,58 +162,6 @@ namespace Qwirkle_WPF
                 tile = tileGrid[(int)candidateRow, (int)candidateColumn];
                 //Console.WriteLine($"Tile {tile.Colour}:{tile.Shape} found at coordinate {candidateX}:{candidateY} (by coordinates)");
                 return true; //if there's a tile in the position, return it.
-            }
-        }
-
-        public static bool QueryNearbyLocation(int startingRow, int startingColumn, int direction, int distance) //return true if there is a tile, false if there isn't
-        {
-            //if there's a tile in the location, return the tile
-            int? candidateRow;
-            int? candidateColumn;
-
-            //work out the candidate coordinates
-            switch (direction)
-            {
-                case 0: //left
-                    //Console.WriteLine("Left");
-                    candidateRow = startingRow - distance;
-                    candidateColumn = startingColumn;
-                    break;
-                case 1: //right
-                    //Console.WriteLine("Right");
-                    candidateRow = startingRow + distance;
-                    candidateColumn = startingColumn;
-                    break;
-                case 2: //up
-                    //Console.WriteLine("Up");
-                    candidateRow = startingRow;
-                    candidateColumn = startingColumn - distance;
-                    break;
-                case 3: //down
-                    //Console.WriteLine("Down");
-                    candidateRow = startingRow;
-                    candidateColumn = startingColumn + distance;
-                    break;
-                default:
-                    Console.WriteLine("Invalid direction");
-                    candidateRow = -1;
-                    candidateColumn = -1;
-                    break;
-            }
-            if (candidateRow < 0 || candidateColumn < 0)  //if the position doesn't exist, return null
-            {
-                //Console.WriteLine($"coordinate {candidateX}:{candidateY} does not exist");
-                return false;
-            }
-            else if (IsEmptyPosition((int)candidateRow, (int)candidateColumn))  // the position exists, but there's nothing in it, return null
-            {
-                //Console.WriteLine($"coordinate {candidateX}:{candidateY} is empty");
-                return false;
-            }
-            else
-            {
-                //Console.WriteLine($"Tile {tile.Colour}:{tile.Shape} found at coordinate {candidateX}:{candidateY} (by coordinates)");
-                return true; //if there's a tile in the position, return true.
             }
         }
 

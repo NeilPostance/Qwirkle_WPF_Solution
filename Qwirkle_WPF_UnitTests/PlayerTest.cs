@@ -9,6 +9,29 @@ namespace Qwirkle_WPF_Tests
     public class PlayerTest
     {
         [TestMethod]
+        public void CreatePlayers_Default()
+        {
+            Player p1 = new Player();
+            int playerCount = Player.GetPlayerCount();
+            Assert.AreEqual($"Player{playerCount}", p1.Name);
+        }
+
+        [TestMethod]
+        public void CreatePlayers_CustomName()
+        {
+            Player p1 = new Player("Jim");
+            Assert.AreEqual("Jim", p1.Name);
+        }
+
+        [TestMethod]
+        public void CreatePlayers_WithdrawStartingTiles()
+        {
+            Bag.FillTheBag(2,2,2);
+            Player p1 = new Player(true);
+            Assert.AreEqual(MainClass.startingTileCount, p1.tilesInHand.Count);
+        }
+
+        [TestMethod]
         public void GetTilesFromBag()
         {
             Bag.FillTheBag(1, 1, 1);
@@ -26,6 +49,33 @@ namespace Qwirkle_WPF_Tests
             player.ListTilesInHand();
 
             Assert.AreEqual(expectedPlayerHand, sw.ToString());
+        }
+
+        [TestMethod]
+        public void ListTiles()
+        {
+            Bag.EmptyTheBag();
+            Bag.FillTheBag(1, 1, 2);
+            Player player = new Player("Player");
+            player.GetTilesFromBag(2);
+            player.PlaceTile(0, 1, 1);
+
+            string expectedTileList = @"Player has the following tiles 
+In hand:
+# 0 : Red:Square □
+---------------------------
+Placed this turn:
+# 0 : Red:Square placed (1, 1) □
+---------------------------
+";
+            var sw = new StringWriter();
+            Console.SetOut(sw);
+            Console.SetError(sw);
+
+            player.ListTiles();
+
+            Assert.AreEqual(expectedTileList, sw.ToString());
+
         }
 
         [TestMethod]
@@ -64,9 +114,22 @@ namespace Qwirkle_WPF_Tests
         }
 
         [TestMethod]
+        public void PlaceTile_ByRef()
+        {
+            Grid.Empty();
+            Bag.EmptyTheBag();
+            Bag.FillTheBag(6, 6, 3);
+            Player p1 = new Player(true);
+            Tile copyOfTile = p1.tilesInHand[0];
+            p1.PlaceTile(p1.tilesInHand[0], 1, 1);
+            
+            Assert.AreEqual(copyOfTile, Grid.GetTile(1, 1));
+        }
+
+        [TestMethod]
         public void CalculateTurnScore_horizontal()
         {
-            //Grid.Empty();
+            Grid.Empty();
             Bag.FillTheBag(1, 6, 1);
             Player player = new Player(false);
             player.GetTilesFromBag(5);

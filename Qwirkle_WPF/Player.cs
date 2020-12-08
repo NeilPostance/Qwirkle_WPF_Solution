@@ -7,6 +7,7 @@ namespace Qwirkle_WPF
     public class Player
     {
         private static int? count; // incrementing value for playerId
+
         public int Id { get; } // instance value for playerId
         public string Name { get; }
 
@@ -26,13 +27,11 @@ namespace Qwirkle_WPF
             }
         }
 
-        // player should have a hand
-        public List<Tile> tilesInHand = new List<Tile>();
+        public List<Tile> tilesInHand = new List<Tile>(); // Tiles in the players hand
 
-        // keep track of the tiles placed on each turn so that we can calculate the score later
-        public List<Tile> placedTiles = new List<Tile>();
+        public List<Tile> placedTiles = new List<Tile>(); // Tiles the player has placed on the current turn so that we can calculate the score later
 
-        public List<Tile> returnedTiles = new List<Tile>();
+        public List<Tile> returnedTiles = new List<Tile>(); // Tiles the player has returned this turn, so that they don't draw the same times this go.
 
 
 
@@ -94,6 +93,11 @@ namespace Qwirkle_WPF
         public override string ToString()
         {
             return this.Name.ToString();
+        }
+
+        public static int GetPlayerCount()
+        {
+            return (int)count;
         }
 
         public bool GetTilesFromBag(int tileCount)
@@ -256,6 +260,8 @@ namespace Qwirkle_WPF
 
         public bool PlaceTile(int tileIndex, int row, int column) //Take a tile from a players hand, and place it in a position on the board.
         {
+            if (tileIndex > tilesInHand.Count)
+                return false;
             Tile tile = this.tilesInHand[tileIndex];
             Grid.PlaceTile(tile, row, column); //place the tile in the grid
             this.placedTiles.Add(tile); //add it to the list of tiles placed this turn

@@ -11,7 +11,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void PlaceTile()
         {
-            Tile tile = new Tile((int)EnumColour.Blue, (int)EnumShape.Bang);
+            Tile tile = new Tile(EnumColour.Blue, EnumShape.Bang);
 
             Grid.PlaceTile(tile, 0, 0);
 
@@ -54,7 +54,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void QueryNearbyLocation_LeftExists()
         {
-            Tile tile = new Tile((int)EnumColour.Blue, (int)EnumShape.Bang);
+            Tile tile = new Tile(EnumColour.Blue, EnumShape.Bang);
 
             Grid.PlaceTile(tile, 4, 4);
             bool tileExists = Grid.QueryNearbyLocation(5, 4, EnumDirection.Left, 1, out Tile outTile);
@@ -67,7 +67,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void QueryNearbyLocation_RightExists()
         {
-            Tile tile = new Tile((int)EnumColour.Red, (int)EnumShape.Square);
+            Tile tile = new Tile(EnumColour.Red, EnumShape.Square);
 
             Grid.PlaceTile(tile, 4, 4);
             bool tileExists = Grid.QueryNearbyLocation(3, 4, EnumDirection.Right, 1, out Tile outTile);
@@ -80,7 +80,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void QueryNearbyLocation_UpExists()
         {
-            Tile tile = new Tile((int)EnumColour.Green, (int)EnumShape.Diamond);
+            Tile tile = new Tile(EnumColour.Green, EnumShape.Diamond);
 
             Grid.PlaceTile(tile, 4, 4);
             bool tileExists = Grid.QueryNearbyLocation(4, 5, EnumDirection.Up, 1, out Tile outTile);
@@ -93,7 +93,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void QueryNearbyLocation_DownExists()
         {
-            Tile tile = new Tile((int)EnumColour.Orange, (int)EnumShape.Circle);
+            Tile tile = new Tile(EnumColour.Orange, EnumShape.Circle);
 
             Grid.PlaceTile(tile, 4, 4);
             bool tileExists = Grid.QueryNearbyLocation(4, 3, EnumDirection.Down, 1, out Tile outTile);
@@ -106,7 +106,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void QueryNearbyLocation_EmptyLocation()
         {
-            Tile tile = new Tile((int)EnumColour.Orange, (int)EnumShape.Circle);
+            Tile tile = new Tile(EnumColour.Orange, EnumShape.Circle);
 
             Grid.PlaceTile(tile, 0, 0);
             bool tileExists = Grid.QueryNearbyLocation(9, 9, EnumDirection.Up, 1, out Tile outTile);
@@ -119,7 +119,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void QueryNearbyLocation_InvalidLocation()
         {
-            Tile tile = new Tile((int)EnumColour.Orange, (int)EnumShape.Circle);
+            Tile tile = new Tile(EnumColour.Orange, EnumShape.Circle);
 
             Grid.PlaceTile(tile, 0, 0);
             bool tileExists = Grid.QueryNearbyLocation(0, 0, EnumDirection.Up, 1, out Tile outTile);
@@ -206,5 +206,78 @@ namespace Qwirkle_WPF_Tests
             Assert.ReferenceEquals(t3, outTile);
         }
 
+        [TestMethod]
+        public void getTile()
+        {
+            Grid.Empty();
+            Tile t1 = new Tile(EnumColour.Blue, EnumShape.Bang);
+            Grid.PlaceTile(t1, 1, 1);
+            Tile returnedTile = Grid.GetTile(1, 1);
+            Assert.ReferenceEquals(t1, returnedTile);
+        }
+
+        [TestMethod]
+        public void TileCountInGrid()
+        {
+            Grid.Empty();
+            Tile t1 = new Tile(EnumColour.Blue, EnumShape.Bang);
+            Tile t2 = new Tile(EnumColour.Green, EnumShape.Circle);
+            Tile t3 = new Tile(EnumColour.Red, EnumShape.Club);
+
+            Grid.PlaceTile(t1, 1, 2);
+            Grid.PlaceTile(t2, 2, 2);
+            Grid.PlaceTile(t3, 3, 2);
+
+            Assert.AreEqual(3, Grid.TileCountInGrid());
+        }
+
+        [TestMethod]
+        public void GetPositionContent_string()
+        {
+            Grid.Empty();
+            Tile t1 = new Tile(EnumColour.Blue, EnumShape.Bang);
+            Tile t2 = new Tile(EnumColour.Green, EnumShape.Circle);
+            Tile t3 = new Tile(EnumColour.Red, EnumShape.Club);
+
+            Grid.PlaceTile(t1, 1, 2);
+            Grid.PlaceTile(t2, 2, 2);
+            Grid.PlaceTile(t3, 3, 2);
+
+            Assert.AreEqual("Green:Circle", Grid.GetPositionContent(2, 2, out EnumColour outColour, out EnumShape outShape));
+        }
+
+        [TestMethod]
+        public void GetPositionContent_outColour()
+        {
+            Grid.Empty();
+            Tile t1 = new Tile(EnumColour.Blue, EnumShape.Bang);
+            Tile t2 = new Tile(EnumColour.Green, EnumShape.Circle);
+            Tile t3 = new Tile(EnumColour.Red, EnumShape.Club);
+
+            Grid.PlaceTile(t1, 1, 2);
+            Grid.PlaceTile(t2, 2, 2);
+            Grid.PlaceTile(t3, 3, 2);
+
+            Grid.GetPositionContent(3, 2, out EnumColour outColour, out EnumShape outShape);
+
+            Assert.AreEqual(EnumColour.Red, outColour);
+        }
+
+        [TestMethod]
+        public void GetPositionContent_outShape()
+        {
+            Grid.Empty();
+            Tile t1 = new Tile(EnumColour.Blue, EnumShape.Bang);
+            Tile t2 = new Tile(EnumColour.Green, EnumShape.Circle);
+            Tile t3 = new Tile(EnumColour.Red, EnumShape.Club);
+
+            Grid.PlaceTile(t1, 1, 2);
+            Grid.PlaceTile(t2, 2, 2);
+            Grid.PlaceTile(t3, 3, 2);
+
+            Grid.GetPositionContent(1, 2, out EnumColour outColour, out EnumShape outShape);
+
+            Assert.AreEqual(EnumShape.Bang, outShape);
+        }
     }
 }
