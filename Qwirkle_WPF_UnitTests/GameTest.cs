@@ -22,7 +22,7 @@ namespace Qwirkle_WPF_Tests
 
             Grid.QueryNearbyLocation(0, 0, 0, 0, out Tile startingTile);
 
-            Assert.AreEqual(6, Game.CountScoringTilesInLine(startingTile, 'R'));
+            Assert.AreEqual(6, Game.CountScoringTilesInLine(startingTile, EnumAxis.Horizontal));
         }
 
         [TestMethod]
@@ -36,7 +36,7 @@ namespace Qwirkle_WPF_Tests
 
             Grid.QueryNearbyLocation(0, 0, 0, 0, out Tile startingTile);
 
-            Assert.AreEqual(1, Game.CountScoringTilesInLine(startingTile, 'C'));
+            Assert.AreEqual(1, Game.CountScoringTilesInLine(startingTile, EnumAxis.Vertical));
         }
 
         [TestMethod]
@@ -50,7 +50,7 @@ namespace Qwirkle_WPF_Tests
 
             Grid.QueryNearbyLocation(0, 0, 0, 0, out Tile startingTile);
 
-            Assert.AreEqual(5, Game.CountScoringTilesInLine(startingTile, 'C'));
+            Assert.AreEqual(5, Game.CountScoringTilesInLine(startingTile, EnumAxis.Vertical));
         }
 
         [TestMethod]
@@ -64,7 +64,7 @@ namespace Qwirkle_WPF_Tests
 
             Grid.QueryNearbyLocation(0, 0, 0, 0, out Tile startingTile);
 
-            Assert.AreEqual(1, Game.CountScoringTilesInLine(startingTile, 'R'));
+            Assert.AreEqual(1, Game.CountScoringTilesInLine(startingTile, EnumAxis.Horizontal));
         }
 
         [TestMethod]

@@ -276,18 +276,18 @@ namespace Qwirkle_WPF
                 {
                     case 'R':
                         Console.WriteLine($"The tiles has been placed along a row. Calculating that direction first.");
-                        int caseRRowScore = CountScoringTilesInLine(player.placedTiles[0], 'R');
+                        int caseRRowScore = CountScoringTilesInLine(player.placedTiles[0], EnumAxis.Horizontal);
                         if (caseRRowScore == 6)
                             caseRRowScore += 6;
-                        int caseRColumnScore = CountScoringTilesPerpendicular(player, 'C');
+                        int caseRColumnScore = CountScoringTilesPerpendicular(player, EnumAxis.Vertical);
                         tempScore = caseRRowScore + caseRColumnScore;
                         break;
                     case 'C':
                         Console.WriteLine($"The tiles has been placed along a column. Calculating that direction first.");
-                        int caseCColumnScore = CountScoringTilesInLine(player.placedTiles[0], 'C');
+                        int caseCColumnScore = CountScoringTilesInLine(player.placedTiles[0], EnumAxis.Vertical);
                         if (caseCColumnScore == 6)
                             caseCColumnScore += 6;
-                        int caseCRowScore = CountScoringTilesPerpendicular(player, 'R');
+                        int caseCRowScore = CountScoringTilesPerpendicular(player, EnumAxis.Horizontal);
                         tempScore = caseCRowScore + caseCColumnScore;
                         break;
                     default:
@@ -304,7 +304,7 @@ namespace Qwirkle_WPF
             return tempScore;
         }
 
-        public static int CountScoringTilesInLine(Tile tile, char direction)
+        public static int CountScoringTilesInLine(Tile tile, EnumAxis direction)
         {
             int tileCount = 0;
 
@@ -312,7 +312,7 @@ namespace Qwirkle_WPF
 
             switch (direction)
             {
-                case 'R':
+                case EnumAxis.Horizontal:
                     for (int currentC = startingC - 1; currentC >= 0; currentC--) //count left
                     {
                         if (Grid.IsEmptyPosition(startingR, currentC))
@@ -329,7 +329,7 @@ namespace Qwirkle_WPF
                     }
                     tileCount++; //count self
                     return tileCount;
-                case 'C': //column-wise
+                case EnumAxis.Vertical: //column-wise
                     for (int currentR = startingR - 1; currentR >= 0; currentR--) // count up
                     {
                         if (Grid.IsEmptyPosition(currentR, startingC))
@@ -352,7 +352,7 @@ namespace Qwirkle_WPF
            
         }
 
-        public static int CountScoringTilesPerpendicular(Player player, char direction)
+        public static int CountScoringTilesPerpendicular(Player player, EnumAxis direction)
         {
             int perpendicularScore = 0;
             //for this one, we don't include the actual tile itself in the score, unless the perpendicular score is greater than 1
