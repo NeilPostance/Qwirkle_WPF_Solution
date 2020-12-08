@@ -104,7 +104,7 @@ namespace Qwirkle_WPF
 
             bool hasNearbyTiles = false;
             int distance = 1;
-            Grid.EnumDirection direction = Grid.EnumDirection.Left;
+            EnumDirection direction = EnumDirection.Left;
             int matchType = 0; //0: no matchtype, 1:Colour, 2:Shape
             bool invalidMove = false;
             if (!Grid.IsEmptyPosition(startingRow, startingColumn))
@@ -119,7 +119,7 @@ namespace Qwirkle_WPF
             do
             {
                 //Is there a nearbyTile?
-                bool nearbyTileExists = Grid.QueryNearbyLocation(startingRow, startingColumn, (int)direction, distance, out Tile nearbyTile);
+                bool nearbyTileExists = Grid.QueryNearbyLocation(startingRow, startingColumn, direction, distance, out Tile nearbyTile);
                 if (nearbyTileExists)
                 {
                     hasNearbyTiles = true;
@@ -238,12 +238,12 @@ namespace Qwirkle_WPF
                     Console.WriteLine($"No more tiles found {direction}");
                     switch (direction)
                     {
-                        case Grid.EnumDirection.Right:
-                            direction = Grid.EnumDirection.Up;
+                        case EnumDirection.Right:
+                            direction = EnumDirection.Up;
                             distance = 1; //reset the distance, because we're now starting with a new direction
                             matchType = 0; //the next direction is up, we're therefore changing plane and so we need to reset the match type.
                             continue;
-                        case Grid.EnumDirection.Down: // If we've got here, we must've checked all directions without being told it's invalid.
+                        case EnumDirection.Down: // If we've got here, we must've checked all directions without being told it's invalid.
                             if (hasNearbyTiles)
                             {
                                 Console.WriteLine("That move is valid");

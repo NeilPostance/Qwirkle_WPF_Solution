@@ -3,6 +3,13 @@ using System.Linq;
 
 namespace Qwirkle_WPF
 {
+    public enum EnumDirection
+    {
+        Left,
+        Right,
+        Up,
+        Down
+    }
     public enum EnumColour
     {
         Red,

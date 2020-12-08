@@ -22,11 +22,6 @@ namespace Qwirkle_WPF
                         for (int shapeLoop = 0; shapeLoop < shapeCount; shapeLoop++) // loop through the symbols
                         {
                             tilesInBag.Add(new Tile(colourLoop, shapeLoop));
-
-                            //Console.WriteLine($"There are {tilesInBag.Count} tiles in the bag");
-
-                            //Console.WriteLine($"Added {tilesInBag[tilesInBag.Count - 1]} count {tilesInBag.Count}");
-                            //System.Threading.Thread.Sleep(1000);
                         }
                     }
                 }

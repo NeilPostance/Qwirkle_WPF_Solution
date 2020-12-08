@@ -7,13 +7,7 @@ namespace Qwirkle_WPF
     {
         public static Tile[,] tileGrid = new Tile[MainClass.GridRows, MainClass.GridColumns];
 
-        public enum EnumDirection
-        {
-            Left,
-            Right,
-            Up,
-            Down
-        }
+        
 
         public static int TileCountInGrid()
         {
@@ -111,7 +105,7 @@ namespace Qwirkle_WPF
             return true;
         }
     
-        public static bool QueryNearbyLocation(int startingRow, int startingColumn, int direction, int distance, out Tile tile) //return true if there is a tile, false if there isn't
+        public static bool QueryNearbyLocation(int startingRow, int startingColumn, EnumDirection direction, int distance, out Tile tile) //return true if there is a tile, false if there isn't
         {
             //if there's a tile in the location, return the tile
             int? candidateRow;
@@ -120,22 +114,22 @@ namespace Qwirkle_WPF
             //work out the candidate coordinates
             switch (direction)
             {
-                case 0: //left
+                case EnumDirection.Left:
                     //Console.WriteLine("Left");
                     candidateRow = startingRow - distance;
                     candidateColumn = startingColumn;
                     break;
-                case 1: //right
+                case EnumDirection.Right:
                     //Console.WriteLine("Right");
                     candidateRow = startingRow + distance;
                     candidateColumn = startingColumn;
                     break;
-                case 2: //up
+                case EnumDirection.Up:
                     //Console.WriteLine("Up");
                     candidateRow = startingRow;
                     candidateColumn = startingColumn - distance;
                     break;
-                case 3: //down
+                case EnumDirection.Down:
                     //Console.WriteLine("Down");
                     candidateRow = startingRow;
                     candidateColumn = startingColumn + distance;
@@ -218,7 +212,7 @@ namespace Qwirkle_WPF
             }
         }
 
-        public static bool QueryNearbyLocation(Tile startingTile, int direction, int distance, out Tile tile) //return true if there is a tile, false if there isn't
+        public static bool QueryNearbyLocation(Tile startingTile, EnumDirection direction, int distance, out Tile tile) //return true if there is a tile, false if there isn't
         {
             //if there's a tile in the location, return the tile
             int? candidateRow;
@@ -230,22 +224,22 @@ namespace Qwirkle_WPF
             //work out the candidate coordinates
             switch (direction)
             {
-                case 0: //left
+                case EnumDirection.Left: //left
                     //Console.WriteLine("Left");
                     candidateRow = startingRow;
                     candidateColumn = startingColumn - distance;
                     break;
-                case 1: //right
+                case EnumDirection.Right: //right
                     //Console.WriteLine("Right");
                     candidateRow = startingRow;
                     candidateColumn = startingColumn + distance;
                     break;
-                case 2: //up
+                case EnumDirection.Up: //up
                     //Console.WriteLine("Up");
                     candidateRow = startingRow - distance;
                     candidateColumn = startingColumn;
                     break;
-                case 3: //down
+                case EnumDirection.Down: //down
                     //Console.WriteLine("Down");
                     candidateRow = startingRow + distance;
                     candidateColumn = startingColumn;
