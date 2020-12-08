@@ -25,15 +25,13 @@ namespace Qwirkle_WPF
             NextPlayer();
         }
 
-        public static Player GetCurrentPlayer()
-        {
-            return CurrentPlayer;
-        }
+   
 
 
         public static void DeterminePlayerOrder()
         {
             // determine the player order, and store in playerOrder[]
+            ListOfOrderedPlayers.Clear(); //empty out the ordered player list so it doesn't just get added to.
             Player firstPlayer = Game.ListOfPlayers[0];
             int mostMoves = 0;
 
@@ -85,6 +83,7 @@ namespace Qwirkle_WPF
             //Console.WriteLine($"The current player index is {ListOfOrderedPlayers.IndexOf(CurrentPlayer)}");
             return ListOfOrderedPlayers.IndexOf(CurrentPlayer);
         }
+
         public static void NextPlayer()
         {
             //Console.WriteLine($"The current player index is {ListOfOrderedPlayers.IndexOf(CurrentPlayer)} out of {ListOfOrderedPlayers.Count} and it's about to be incremented");
@@ -264,163 +263,7 @@ namespace Qwirkle_WPF
 
 
         }
-        /*
-        private static int CalculateTurnHorizontalScore(Player player) //What score did the player get on the horizontal axis?
-        {
-            List<Tile> HorizontalScoringTiles = new List<Tile>();
-            //get the first placed tile, add it to the temp list
-            int direction = 0;
-            int distance = 1;
-            bool finished = false;
 
-            int horizontalScore = 0;
-
-            foreach (Tile placedTile in player.placedTiles)
-            {
-                int tempHorizontalScore = 0;
-                //need to track points for each tile on the horizontal
-
-
-
-                do
-                {
-                    if (HorizontalScoringTiles.Contains(placedTile) == false)
-                        HorizontalScoringTiles.Add(placedTile);
-
-                    if (Grid.QueryNearbyLocation(placedTile, direction, distance, out Tile scorableTile) == true)  //look in a direction, get a tile
-                    {
-                        Console.WriteLine($"Found a touching tile at {scorableTile.GridXref}");
-                        if (HorizontalScoringTiles.Contains(scorableTile) == false) // record it in a temporary list if it's not already there
-                        {
-                            if (tempHorizontalScore == 0)
-                            {
-                                Console.WriteLine($"Claiming a point for {placedTile.GridXref}");
-                                tempHorizontalScore += 1; //we've encountered a scorable tile, so add a point
-                                Console.WriteLine($"Claiming a point for {scorableTile.GridXref}");
-                                tempHorizontalScore += 1; //we've encountered a scorable tile, so add a point
-                            }
-                            else
-                            {
-                                Console.WriteLine($"Claiming a point for {scorableTile.GridXref}");
-                                tempHorizontalScore += 1; //we've encountered a scorable tile, so add a point
-                            }
-                            HorizontalScoringTiles.Add(scorableTile);
-
-                        }
-                        else
-                        {
-                            //if we've already scored the tile, we don't want to claim points for it again.
-                        }
-
-                        distance++; //keep looking in the same direction;
-                        continue;
-                    }
-                    else if (direction == 0) //if there's no tiles in the current direction, change to the next one.
-                    {
-                        direction++;
-                        distance = 1;
-                        continue;
-                    }
-                    else if (direction == 1) //if there's no tiles in the last direction, jump to the next placed tile.
-                    {
-                        finished = true;
-                        break; //no more directions to go, so stop looking for tiles
-                    }
-
-                } while (finished == false);
-
-                if (tempHorizontalScore > 0)
-                    horizontalScore += tempHorizontalScore;
-
-            }
-            if (horizontalScore == 6)
-            {
-                Console.WriteLine("Qwirkle!");
-                horizontalScore = 12; //Qwirkle!
-            }
-
-            Console.WriteLine($"Horizontal Score: {horizontalScore}");
-            return horizontalScore; //return the count of the tiles in the temp list
-        }
-
-        private static int CalculateTurnVerticalScore(Player player) //What score did the player get on the horizontal axis?
-        {
-            List<Tile> VerticalScoringTiles = new List<Tile>();
-            //get the first placed tile, add it to the temp list
-            int direction = 2;
-            int distance = 1;
-            bool finished = false;
-
-            int verticalScore = 0;
-
-            foreach (Tile placedTile in player.placedTiles)
-            {
-                int tempVerticalScore = 0;
-                Console.WriteLine($"Now checking {placedTile.GridXref}");
-                do
-                {
-
-                    if (VerticalScoringTiles.Contains(placedTile) == false)
-                        VerticalScoringTiles.Add(placedTile);
-                    if (Grid.QueryNearbyLocation(placedTile, direction, distance, out Tile scorableTile))  //look in a direction, get a tile
-                    {
-                        Console.WriteLine($"Found a touching tile at {scorableTile.GridXref}");
-                        if (VerticalScoringTiles.Contains(scorableTile) == false) // record it in a temporary list if it's not already there
-                        {
-                            if (tempVerticalScore == 0)
-                            {
-                                Console.WriteLine($"Claiming a point for {placedTile.GridXref}");
-                                tempVerticalScore += 1; //we've encountered a scorable tile, so add a point
-                                Console.WriteLine($"Claiming a point for {scorableTile.GridXref}");
-                                tempVerticalScore += 1; //we've encountered a scorable tile, so add a point
-                            }
-                            else
-                            {
-                                Console.WriteLine($"Claiming a point for {scorableTile.GridXref}");
-                                tempVerticalScore += 1; //we've encountered a scorable tile, so add a point
-                            }
-                            VerticalScoringTiles.Add(scorableTile);
-                        }
-                        else
-                        {
-                            //if we've already scored the tile, we don't want to claim points for it again.
-                        }
-
-                        distance++; //keep looking in the same direction;
-                        continue;
-                    }
-                    else if (direction == 2) //if there's no tiles in the current direction, change to the next one.
-                    {
-                        direction++;
-                        distance = 1;
-                        continue;
-                    }
-                    else if (direction == 3) //if there's no tiles in the last direction, jump to the next placed tile.
-                    {
-                        finished = true;
-                        break; //no more directions to go, so stop looking for tiles
-                    }
-
-
-                } while (finished == false);
-
-                if (tempVerticalScore > 0)
-                    verticalScore += tempVerticalScore;
-            }
-
-            if (verticalScore == 6)
-                verticalScore = 12; //Qwirkle!
-
-            Console.WriteLine($"Vertical Score: {verticalScore}");
-            return verticalScore; //return the count of the tiles in the temp list
-        }
-
-        public static int CalculateTurnScore(Player player) //What score did the player get on the horizontal axis?
-        {
-            int score = CalculateTurnHorizontalScore(player) + CalculateTurnVerticalScore(player);
-            Console.WriteLine($"{player.Name} scored {score}");
-            return score;
-        }*/
 
         public static int CalculateTurnScore2(Player player)
         {

@@ -79,6 +79,53 @@ Placed this turn:
         }
 
         [TestMethod]
+        public void ListPlacedTiles()
+        {
+            Bag.EmptyTheBag();
+            Bag.FillTheBag(1, 1, 2);
+            Player player = new Player("Player");
+            player.GetTilesFromBag(2);
+            player.PlaceTile(1, 1, 1);
+            player.PlaceTile(0, 1, 2);
+
+            string expectedPlacedTileList =
+@"Placed this turn:
+# 0 : Red:Square placed (1, 1) □
+# 1 : Red:Square placed (1, 2) □
+---------------------------
+";
+            var sw = new StringWriter();
+            Console.SetOut(sw);
+            Console.SetError(sw);
+
+            player.ListPlacedTiles();
+
+            Assert.AreEqual(expectedPlacedTileList, sw.ToString());
+        }
+
+        [TestMethod]
+        public void MaxPlaceableTiles_1()
+        {
+            Bag.EmptyTheBag();
+            Bag.FillTheBag(6, 1, 1);
+            Player player = new Player("Player");
+            player.GetTilesFromBag(6);
+            player.MaxPlaceableTiles(out int highestCount);
+            Assert.AreEqual(6, highestCount);
+        }
+
+        [TestMethod]
+        public void MaxPlaceableTiles_2()
+        {
+            Bag.EmptyTheBag();
+            Bag.FillTheBag(3, 1, 6);
+            Player player = new Player("Player");
+            player.GetTilesFromBag(6);
+            player.MaxPlaceableTiles(out int highestCount);
+            Assert.AreEqual(3, highestCount);
+        }
+
+        [TestMethod]
         public void ReturnTileToBag()
         {
             Bag.FillTheBag(1, 1, 1);
@@ -208,6 +255,30 @@ Placed this turn:
 
             Assert.AreEqual(5, Game.CalculateTurnScore2(player));
 
+        }
+
+        [TestMethod]
+        public void AddGetScore()
+        {
+            Grid.Empty();
+            Bag.FillTheBag(6, 1, 1); 
+            Player player = new Player(true);
+            player.PlaceTile(5, 0, 1);
+            player.AddScore(5);
+            Assert.AreEqual(5, player.GetScore());
+        }
+
+        [TestMethod]
+        public void RefillHand()
+        {
+            Grid.Empty();
+            Bag.EmptyTheBag();
+            Bag.FillTheBag(6, 6, 1);
+            Player player = new Player(true);
+            player.PlaceTile(5, 0, 1);
+            player.PlaceTile(4, 0, 2);
+            player.PlaceTile(3, 0, 3);
+            Assert.AreEqual(3, player.RefillHand());
         }
         /*
         [TestMethod]

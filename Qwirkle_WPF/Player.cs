@@ -35,7 +35,7 @@ namespace Qwirkle_WPF
 
 
 
-        // Constructor
+        // Constructors
         public Player(string playerName)
         {
             if (count == null)
@@ -51,6 +51,7 @@ namespace Qwirkle_WPF
             this.Name = playerName;
             Console.WriteLine($"Player {this.Name} with ID: {this.Id} created");
             this.GetTilesFromBag(MainClass.startingTileCount);
+            Game.ListOfPlayers.Add(this);
         }
 
         public Player()
@@ -69,6 +70,7 @@ namespace Qwirkle_WPF
 
             Console.WriteLine($"Player {this.Name} with ID: {this.Id} created");
             this.GetTilesFromBag(MainClass.startingTileCount);
+            Game.ListOfPlayers.Add(this);
         }
 
         public Player(bool getStartingTiles)
@@ -88,12 +90,15 @@ namespace Qwirkle_WPF
             Console.WriteLine($"Player {this.Name} with ID: {this.Id} created");
             if (getStartingTiles)
                 this.GetTilesFromBag(MainClass.startingTileCount);
+            Game.ListOfPlayers.Add(this);
         }
 
+        //overrides
         public override string ToString()
         {
             return this.Name.ToString();
         }
+
 
         public static int GetPlayerCount()
         {
@@ -285,17 +290,6 @@ namespace Qwirkle_WPF
             }
         }
 
-        public void AddScore(int verticalScore, int horizontalScore)
-        {
-            if (this.placedTiles.Count() == 0)
-                return;
-            else
-            {
-                this.score += (verticalScore + horizontalScore);
-                this.placedTiles.Clear(); //clear the placed tiles here to reduce the chance of adding the same score more than once
-            }
-            
-        }
 
         public void AddScore(int turnScore)
         {
@@ -333,16 +327,22 @@ namespace Qwirkle_WPF
             }
         }
 
-        public void RefillHand()
+        public int RefillHand() //tops the players hand up to full and returns the number of new tiles added to the players hand.
         {
             if (this.tilesInHand.Count < MainClass.startingTileCount)
             {
                 int tilesToGet = MainClass.startingTileCount - this.tilesInHand.Count;
                 GetTilesFromBag(tilesToGet);
-                Console.WriteLine($"Refilled bag with {tilesToGet} tiles.");
+                Console.WriteLine($"Refilled hand with {tilesToGet} tiles.");
+                return tilesToGet;
             }
             else
+            {
                 Console.WriteLine($"The hand is full, no need to get any additional tiles.");
+                return 0;
+            }
+                
+            
         }
     }
 }

@@ -98,5 +98,60 @@ namespace Qwirkle_WPF_Tests
             Assert.AreEqual(5, Game.CalculateTurnScore2(player));
 
         }
+
+        [TestMethod]
+        public void DeterminePlayerOrder()
+        {
+            Grid.Empty();
+            Bag.EmptyTheBag();
+            Bag.FillTheBag(3, 1, 1);
+            Player p1 = new Player(false);
+            p1.GetTilesFromBag(3); //they'll be able to place 3 tiles
+
+            Bag.FillTheBag(1, 5, 1);
+            Player p2 = new Player(false);
+            p2.GetTilesFromBag(5);//they'll be able to place 5 tiles
+
+            Bag.FillTheBag(1, 1, 6);
+            Player p3 = new Player(false);
+            p3.GetTilesFromBag(6);//they'll be able to place 1 tile
+
+            List<Player> expectedPlayerList = new List<Player>();
+            expectedPlayerList.Add(p2); //p2 has the most placeable tiles so they go first
+            expectedPlayerList.Add(p3); //the rest follow in sequence of creation, looping.
+            expectedPlayerList.Add(p1);
+
+            Game.DeterminePlayerOrder();
+
+            bool isSame = true;
+            for (int playerIndex = 0; playerIndex < Game.ListOfOrderedPlayers.Count; playerIndex++)
+            {
+                isSame = expectedPlayerList[playerIndex] == Game.ListOfOrderedPlayers[playerIndex] ? true : false;
+                if (isSame == false)
+                    break;
+            }
+
+            Assert.IsTrue(isSame);
+        }
+
+        [TestMethod]
+        public void NextPlayer()
+        {
+            Grid.Empty();
+            Bag.EmptyTheBag();
+            Bag.FillTheBag(3, 1, 1);
+            Player p1 = new Player(false);
+            p1.GetTilesFromBag(3); //they'll be able to place 3 tiles
+
+            Bag.FillTheBag(1, 5, 1);
+            Player p2 = new Player(false);
+            p2.GetTilesFromBag(5);//they'll be able to place 5 tiles
+
+            Game.DeterminePlayerOrder(); // p2 will play first
+            Game.NextPlayer(); //p1 plays next
+            Assert.IsTrue(Game.CurrentPlayer == p1);
+            
+            
+        }
     }
 }
