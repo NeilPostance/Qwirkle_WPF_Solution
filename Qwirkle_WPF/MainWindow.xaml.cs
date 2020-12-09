@@ -180,7 +180,11 @@ namespace Qwirkle_WPF
                     
                 }
             }
-            dgGameBoard.ItemsSource = dt.DefaultView;
+            dgGameBoard.Dispatcher.Invoke(() =>
+            {
+                dgGameBoard.ItemsSource = dt.DefaultView;
+            });
+            
         }
 
         private void PlaceTile_Click(object sender, RoutedEventArgs e)
@@ -254,7 +258,11 @@ namespace Qwirkle_WPF
                 ShowPlayers();
                 ShowScores();
                 ListTilesInCurrentPlayerHand();
-                Update_ListTilesInHand((Player)PlayerList.SelectedItem);
+                PlayerList.Dispatcher.Invoke(() =>
+                {
+                    Update_ListTilesInHand((Player)PlayerList.SelectedItem);
+                });
+                
                 ShowGameBoard();
                 Update_lblCurrentPlayer();
                 ShowTileCount();

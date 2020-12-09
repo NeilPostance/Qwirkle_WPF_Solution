@@ -94,7 +94,7 @@ namespace Qwirkle_WPF
             {
                 for (int loop = 0; loop < players; loop++)
                 {
-                    Game.ListOfPlayers.Add(new Human());
+                    new Human();
                 }
             }
             else
