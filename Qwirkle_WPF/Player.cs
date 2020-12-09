@@ -107,8 +107,11 @@ namespace Qwirkle_WPF
 
         public bool GetTilesFromBag(int tileCount)
         {
+            
+
             if (tileCount < 1)
             {
+                Game.DetermineLastRound();
                 return false;
             }
             else
@@ -132,17 +135,14 @@ namespace Qwirkle_WPF
                     }
                     catch (ArgumentOutOfRangeException)
                     { 
-                        Console.WriteLine("Not enough tiles in the bag.");
-                        Game.SetLastRound();
+                        Console.WriteLine("Not enough tiles in the bag."); //should never reach this point...
+                        Game.DetermineLastRound();
                         return false;
                     }
-                    
-                    //add to hand
-                    //Console.WriteLine($"Adding tile with {tileToMove.Colour} {tileToMove.Shape} to hand.");
-
-                    
                 }
-                Console.WriteLine($"There are currently {Bag.tilesInBag.Count} tiles in the bag");
+                Game.DetermineLastRound();
+                if (tileCount>0)
+                    Console.WriteLine($"There are currently {Bag.tilesInBag.Count} tiles in the bag");
                 return true;
             }
         }
@@ -338,16 +338,33 @@ namespace Qwirkle_WPF
 
         public int RefillHand() //tops the players hand up to full and returns the number of new tiles added to the players hand.
         {
-            if (this.tilesInHand.Count < MainClass.startingTileCount)
+            if (Game.GetLastRound() == false)
             {
-                int tilesToGet = MainClass.startingTileCount - this.tilesInHand.Count;
-                GetTilesFromBag(tilesToGet);
-                Console.WriteLine($"Refilled hand with {tilesToGet} tiles.");
-                return tilesToGet;
+                if (Bag.tilesInBag.Count > 0)
+                {
+                    if (this.tilesInHand.Count < MainClass.startingTileCount)
+                    {
+                        int tilesToGet = MainClass.startingTileCount - this.tilesInHand.Count;
+                        GetTilesFromBag(tilesToGet);
+                        Console.WriteLine($"Refilled hand with {tilesToGet} tiles.");
+                        return tilesToGet;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"The hand is full, no need to get any additional tiles.");
+                        return 0;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("For some reason, the last round flag isn't set, but there are no tiles left in the bag.");
+                    Game.DetermineLastRound(); //so we'll try to rectify it.
+                    return 0;
+                }
             }
             else
             {
-                Console.WriteLine($"The hand is full, no need to get any additional tiles.");
+                Console.WriteLine("It's already the last round, so there are no tiles left");
                 return 0;
             }
         }

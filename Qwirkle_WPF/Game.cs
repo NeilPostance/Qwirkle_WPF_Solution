@@ -386,10 +386,20 @@ namespace Qwirkle_WPF
             return perpendicularScore;
         }
 
-        public static void SetLastRound()
+        public static void DetermineLastRound()
         {
-            LastRound = true;
-            Console.WriteLine("It's the last round!");
+            if (Bag.tilesInBag.Count == 0)
+            {
+                LastRound = true;
+                Console.WriteLine("It's the last round!");
+            }
+            else
+                Console.WriteLine("It's not the last round yet.");
+        }
+
+        public static bool GetLastRound()
+        {
+            return LastRound;
         }
     }
 }
