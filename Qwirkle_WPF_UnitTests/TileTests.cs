@@ -9,33 +9,25 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void IsDuplicate()
         {
-
             Assert.IsTrue(Tile.IsDuplicate(new Tile(EnumColour.Blue, EnumShape.Bang), new Tile(EnumColour.Blue, EnumShape.Bang)));
-
         }
 
         [TestMethod]
         public void IsNotDuplicate_ColourDiff()
         {
-
             Assert.IsFalse(Tile.IsDuplicate(new Tile(EnumColour.Blue, EnumShape.Bang), new Tile(EnumColour.Green, EnumShape.Bang)));
-
         }
 
         [TestMethod]
         public void IsNotDuplicate_ShapeDiff()
         {
-
             Assert.IsFalse(Tile.IsDuplicate(new Tile(EnumColour.Blue, EnumShape.Bang), new Tile(EnumColour.Blue, EnumShape.Circle)));
-
         }
 
         [TestMethod]
         public void IsNotDuplicate_BothDiff()
         {
-
             Assert.IsFalse(Tile.IsDuplicate(new Tile(EnumColour.Blue, EnumShape.Bang), new Tile(EnumColour.Green, EnumShape.Circle)));
-
         }
 
         [TestMethod]
@@ -45,7 +37,6 @@ namespace Qwirkle_WPF_Tests
             Tile t2 = new Tile(EnumColour.Blue, EnumShape.Circle);
 
             Assert.IsTrue(Tile.ColourMatch(t1, t2));
-
         }
 
         [TestMethod]
@@ -55,7 +46,6 @@ namespace Qwirkle_WPF_Tests
             Tile t2 = new Tile(EnumColour.Green, EnumShape.Bang);
 
             Assert.IsFalse(Tile.ColourMatch(t1, t2));
-
         }
 
         [TestMethod]
@@ -65,18 +55,15 @@ namespace Qwirkle_WPF_Tests
             Tile t2 = new Tile(EnumColour.Green, EnumShape.Bang);
 
             Assert.IsTrue(Tile.ShapeMatch(t1, t2));
-
         }
 
         [TestMethod]
         public void IsNotShapeMatch()
         {
-            
             Tile t1 = new Tile(EnumColour.Blue, EnumShape.Bang);
             Tile t2 = new Tile(EnumColour.Green, EnumShape.Circle);
 
             Assert.IsFalse(Tile.ShapeMatch(t1, t2));
-
         }
 
         [TestMethod]
@@ -90,6 +77,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void AxisChecker_none()
         {
+            Game.ResetGame();
             Tile t1 = new Tile(EnumColour.Blue, EnumShape.Bang);
             Tile t2 = new Tile(EnumColour.Green, EnumShape.Circle);
 
@@ -102,6 +90,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void AxisChecker_same()
         {
+            Game.ResetGame();
             Tile t1 = new Tile(EnumColour.Blue, EnumShape.Bang);
             Tile t2 = new Tile(EnumColour.Green, EnumShape.Circle);
 
@@ -114,6 +103,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void AxisChecker_Horizontal()
         {
+            Game.ResetGame();
             Tile t1 = new Tile(EnumColour.Blue, EnumShape.Bang);
             Tile t2 = new Tile(EnumColour.Green, EnumShape.Circle);
 
@@ -126,6 +116,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void AxisChecker_Vertical()
         {
+            Game.ResetGame();
             Tile t1 = new Tile(EnumColour.Blue, EnumShape.Bang);
             Tile t2 = new Tile(EnumColour.Green, EnumShape.Circle);
 
@@ -138,6 +129,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void AxisMatch_a_none()
         {
+            Game.ResetGame();
             Tile t1 = new Tile(EnumColour.Blue, EnumShape.Bang);
             Tile t2 = new Tile(EnumColour.Green, EnumShape.Circle);
 
@@ -149,6 +141,7 @@ namespace Qwirkle_WPF_Tests
 
         public void AxisMatch_a_horizontal()
         {
+            Game.ResetGame();
             Tile t1 = new Tile(EnumColour.Blue, EnumShape.Bang);
             Tile t2 = new Tile(EnumColour.Green, EnumShape.Circle);
 
@@ -160,6 +153,7 @@ namespace Qwirkle_WPF_Tests
 
         public void AxisMatch_a_vertical()
         {
+            Game.ResetGame();
             Tile t1 = new Tile(EnumColour.Blue, EnumShape.Bang);
             Tile t2 = new Tile(EnumColour.Green, EnumShape.Circle);
 
@@ -172,16 +166,18 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void AxisMatch_b_none()
         {
+            Game.ResetGame();
             Tile t1 = new Tile(EnumColour.Blue, EnumShape.Bang);
 
             Grid.PlaceTile(t1, 1, 1);
 
-            Assert.IsFalse(Tile.AxisMatch(2, 2, t1, 0));
+            Assert.IsFalse(Tile.AxisMatch(2, 2, t1, EnumAxis.Horizontal));
         }
 
         [TestMethod]
         public void AxisMatch_b_horizontal()
         {
+            Game.ResetGame();
             Tile t1 = new Tile(EnumColour.Blue, EnumShape.Bang);
 
 
@@ -194,6 +190,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void AxisMatch_b_vertical()
         {
+            Game.ResetGame();
             Tile t1 = new Tile(EnumColour.Blue, EnumShape.Bang);
 
 
@@ -206,6 +203,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void TouchingChecker_true1()
         {
+            Game.ResetGame();
             Tile t1 = new Tile(EnumColour.Blue, EnumShape.Bang);
 
             Grid.PlaceTile(t1, 1, 1);
@@ -216,6 +214,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void TouchingChecker_true2()
         {
+            Game.ResetGame();
             Tile t1 = new Tile(EnumColour.Blue, EnumShape.Bang);
 
             Grid.PlaceTile(t1, 1, 1);
@@ -226,6 +225,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void TouchingChecker_false()
         {
+            Game.ResetGame();
             Tile t1 = new Tile(EnumColour.Blue, EnumShape.Bang);
 
             Grid.PlaceTile(t1, 1, 1);

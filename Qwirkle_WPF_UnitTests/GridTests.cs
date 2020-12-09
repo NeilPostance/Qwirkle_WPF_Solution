@@ -11,6 +11,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void PlaceTile()
         {
+            Game.ResetGame();
             Tile tile = new Tile(EnumColour.Blue, EnumShape.Bang);
 
             Grid.PlaceTile(tile, 0, 0);
@@ -22,15 +23,15 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void IsEmpty()
         {
-            Grid.Empty();
-       
+            Game.ResetGame();
+
             Assert.IsTrue(Grid.IsEmpty());
         }
 
         [TestMethod]
         public void IsNotEmpty()
         {
-            Grid.Empty();
+            Game.ResetGame();
             Grid.PlaceTile(new Tile(EnumColour.Green, EnumShape.Star), 4, 4);
             Assert.IsFalse(Grid.IsEmpty());
         }
@@ -38,7 +39,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void IsEmptyPosition()
         {
-            Grid.Empty();
+            Game.ResetGame();
             Grid.PlaceTile(new Tile(EnumColour.Blue, EnumShape.Bang), 4, 4);
             Assert.IsTrue(Grid.IsEmptyPosition(3, 3));
         }
@@ -46,7 +47,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void IsNotEmptyPosition()
         {
-            Grid.Empty();
+            Game.ResetGame();
             Grid.PlaceTile(new Tile(EnumColour.Blue, EnumShape.Bang), 4, 4);
             Assert.IsFalse(Grid.IsEmptyPosition(4, 4));
         }
@@ -54,6 +55,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void QueryNearbyLocation_LeftExists()
         {
+            Game.ResetGame();
             Tile tile = new Tile(EnumColour.Blue, EnumShape.Bang);
 
             Grid.PlaceTile(tile, 4, 4);
@@ -67,6 +69,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void QueryNearbyLocation_RightExists()
         {
+            Game.ResetGame();
             Tile tile = new Tile(EnumColour.Red, EnumShape.Square);
 
             Grid.PlaceTile(tile, 4, 4);
@@ -80,6 +83,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void QueryNearbyLocation_UpExists()
         {
+            Game.ResetGame();
             Tile tile = new Tile(EnumColour.Green, EnumShape.Diamond);
 
             Grid.PlaceTile(tile, 4, 4);
@@ -93,6 +97,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void QueryNearbyLocation_DownExists()
         {
+            Game.ResetGame();
             Tile tile = new Tile(EnumColour.Orange, EnumShape.Circle);
 
             Grid.PlaceTile(tile, 4, 4);
@@ -106,6 +111,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void QueryNearbyLocation_EmptyLocation()
         {
+            Game.ResetGame();
             Tile tile = new Tile(EnumColour.Orange, EnumShape.Circle);
 
             Grid.PlaceTile(tile, 0, 0);
@@ -119,6 +125,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void QueryNearbyLocation_InvalidLocation()
         {
+            Game.ResetGame();
             Tile tile = new Tile(EnumColour.Orange, EnumShape.Circle);
 
             Grid.PlaceTile(tile, 0, 0);
@@ -132,7 +139,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void QueryNearbyLocation_TileBased_Left()
         {
-            Grid.Empty();
+            Game.ResetGame();
             Tile t1 = new Tile(EnumColour.Blue, EnumShape.Bang);
             Tile t2 = new Tile(EnumColour.Green, EnumShape.Circle);
 
@@ -147,7 +154,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void QueryNearbyLocation_TileBased_Right()
         {
-            Grid.Empty();
+            Game.ResetGame();
             Tile t1 = new Tile(EnumColour.Blue, EnumShape.Bang);
             Tile t2 = new Tile(EnumColour.Green, EnumShape.Circle);
 
@@ -162,7 +169,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void QueryNearbyLocation_TileBased_Up()
         {
-            Grid.Empty();
+            Game.ResetGame();
             Tile t1 = new Tile(EnumColour.Blue, EnumShape.Bang);
             Tile t2 = new Tile(EnumColour.Green, EnumShape.Circle);
 
@@ -177,7 +184,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void QueryNearbyLocation_TileBased_Down()
         {
-            Grid.Empty();
+            Game.ResetGame();
             Tile t1 = new Tile(EnumColour.Blue, EnumShape.Bang);
             Tile t2 = new Tile(EnumColour.Green, EnumShape.Circle);
 
@@ -192,7 +199,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void QueryNearbyLocation_TileBased_Down2()
         {
-            Grid.Empty();
+            Game.ResetGame();
             Tile t1 = new Tile(EnumColour.Blue, EnumShape.Bang);
             Tile t2 = new Tile(EnumColour.Green, EnumShape.Circle);
             Tile t3 = new Tile(EnumColour.Red, EnumShape.Club);
@@ -209,7 +216,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void getTile()
         {
-            Grid.Empty();
+            Game.ResetGame();
             Tile t1 = new Tile(EnumColour.Blue, EnumShape.Bang);
             Grid.PlaceTile(t1, 1, 1);
             Tile returnedTile = Grid.GetTile(1, 1);
@@ -219,7 +226,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void TileCountInGrid()
         {
-            Grid.Empty();
+            Game.ResetGame();
             Tile t1 = new Tile(EnumColour.Blue, EnumShape.Bang);
             Tile t2 = new Tile(EnumColour.Green, EnumShape.Circle);
             Tile t3 = new Tile(EnumColour.Red, EnumShape.Club);
@@ -234,7 +241,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void GetPositionContent_string()
         {
-            Grid.Empty();
+            Game.ResetGame();
             Tile t1 = new Tile(EnumColour.Blue, EnumShape.Bang);
             Tile t2 = new Tile(EnumColour.Green, EnumShape.Circle);
             Tile t3 = new Tile(EnumColour.Red, EnumShape.Club);
@@ -249,7 +256,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void GetPositionContent_outColour()
         {
-            Grid.Empty();
+            Game.ResetGame();
             Tile t1 = new Tile(EnumColour.Blue, EnumShape.Bang);
             Tile t2 = new Tile(EnumColour.Green, EnumShape.Circle);
             Tile t3 = new Tile(EnumColour.Red, EnumShape.Club);
@@ -266,7 +273,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void GetPositionContent_outShape()
         {
-            Grid.Empty();
+            Game.ResetGame();
             Tile t1 = new Tile(EnumColour.Blue, EnumShape.Bang);
             Tile t2 = new Tile(EnumColour.Green, EnumShape.Circle);
             Tile t3 = new Tile(EnumColour.Red, EnumShape.Club);

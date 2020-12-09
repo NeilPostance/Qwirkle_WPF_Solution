@@ -15,8 +15,8 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void FillTheBag()
         {
-            Bag.EmptyTheBag();
-            
+            Game.ResetGame();
+
             Bag.FillTheBag(6, 6, 3);
             
             Assert.AreEqual(6 * 6 * 3, Bag.tilesInBag.Count);
@@ -25,6 +25,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void Count()
         {
+            Game.ResetGame();
             Bag.FillTheBag(6, 6, 5);
 
             Assert.AreEqual(Bag.tilesInBag.Count, Bag.Count());
@@ -34,6 +35,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void ListTilesInBag()
         {
+            Game.ResetGame();
             Bag.FillTheBag(2, 2, 2);
 
             var sw = new StringWriter();

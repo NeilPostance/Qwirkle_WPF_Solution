@@ -14,7 +14,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void CountTilesInLine_rows6()
         {
-            Grid.Empty();
+            Game.ResetGame();
             for (int i = 0; i<6; i++)
             {
                 Grid.PlaceTile(new Tile((EnumColour)0, (EnumShape)i), 0, i);
@@ -28,7 +28,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void CountTilesInLine_rows1()
         {
-            Grid.Empty();
+            Game.ResetGame();
             for (int i = 0; i < 6; i++)
             {
                 Grid.PlaceTile(new Tile((EnumColour)0, (EnumShape)i), 0, i);
@@ -42,7 +42,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void CountTilesInLine_columns5()
         {
-            Grid.Empty();
+            Game.ResetGame();
             for (int i = 0; i < 5; i++)
             {
                 Grid.PlaceTile(new Tile((EnumColour)0, (EnumShape)i), i, 0);
@@ -56,7 +56,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void CountTilesInLine_columns1()
         {
-            Grid.Empty();
+            Game.ResetGame();
             for (int i = 0; i < 5; i++)
             {
                 Grid.PlaceTile(new Tile((EnumColour)0, (EnumShape)i), i, 0);
@@ -70,7 +70,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void CalculateTurnScore2_qwirkle()
         {
-            Grid.Empty();
+            Game.ResetGame();
             Bag.FillTheBag(6, 6, 1);
             
             Player player = new Player();
@@ -79,14 +79,14 @@ namespace Qwirkle_WPF_Tests
             {
                 player.PlaceTile(i, 0, i);
             }
-            Assert.AreEqual(12, Game.CalculateTurnScore2(player));
+            Assert.AreEqual(12, Game.CalculateTurnScore(player));
 
         }
 
         [TestMethod]
         public void CalculateTurnScore2()
         {
-            Grid.Empty();
+            Game.ResetGame();
             Bag.FillTheBag(6, 6, 1);
 
             Player player = new Player();
@@ -95,15 +95,14 @@ namespace Qwirkle_WPF_Tests
             {
                 player.PlaceTile(i, 0, i);
             }
-            Assert.AreEqual(5, Game.CalculateTurnScore2(player));
+            Assert.AreEqual(5, Game.CalculateTurnScore(player));
 
         }
 
         [TestMethod]
         public void DeterminePlayerOrder()
         {
-            Grid.Empty();
-            Bag.EmptyTheBag();
+            Game.ResetGame();
             Bag.FillTheBag(3, 1, 1);
             Player p1 = new Player(false);
             p1.GetTilesFromBag(3); //they'll be able to place 3 tiles
@@ -137,8 +136,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void NextPlayer()
         {
-            Grid.Empty();
-            Bag.EmptyTheBag();
+            Game.ResetGame();
             Bag.FillTheBag(3, 1, 1);
             Player p1 = new Player(false);
             p1.GetTilesFromBag(3); //they'll be able to place 3 tiles

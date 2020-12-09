@@ -109,7 +109,7 @@ namespace Qwirkle_WPF
                 return false;
         }
 
-        public static EnumAxis AxisChecker(Tile tile1, Tile tile2)
+        public static EnumAxis AxisChecker(Tile tile1, Tile tile2) //returns the axis that the 2 supplied tiles match on.
         {
             var (t1Row, t1Column) = tile1.GridXref;
             var (t2Row, t2Column) = tile2.GridXref;
@@ -124,7 +124,7 @@ namespace Qwirkle_WPF
                 return EnumAxis.None; //no axis match
         }
 
-        public static bool AxisMatch(Tile tile1, Tile tile2, EnumAxis axis)
+        public static bool AxisMatch(Tile tile1, Tile tile2, EnumAxis axis) //returns true if the 2 provided tiles match on the specified axis
         {
             var (t1Row, t1Column) = tile1.GridXref;
             var (t2Row, t2Column) = tile2.GridXref;

@@ -11,6 +11,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void CreatePlayers_Default()
         {
+            Game.ResetGame();
             Player p1 = new Player();
             int playerCount = Player.GetPlayerCount();
             Assert.AreEqual($"Player{playerCount}", p1.Name);
@@ -19,6 +20,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void CreatePlayers_CustomName()
         {
+            Game.ResetGame();
             Player p1 = new Player("Jim");
             Assert.AreEqual("Jim", p1.Name);
         }
@@ -26,6 +28,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void CreatePlayers_WithdrawStartingTiles()
         {
+            Game.ResetGame();
             Bag.FillTheBag(2,2,2);
             Player p1 = new Player(true);
             Assert.AreEqual(MainClass.startingTileCount, p1.tilesInHand.Count);
@@ -34,6 +37,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void GetTilesFromBag()
         {
+            Game.ResetGame();
             Bag.FillTheBag(1, 1, 1);
             Player player = new Player(false);
             player.GetTilesFromBag(1);
@@ -54,7 +58,7 @@ namespace Qwirkle_WPF_Tests
         [TestMethod]
         public void ListTiles()
         {
-            Bag.EmptyTheBag();
+            Game.ResetGame();
             Bag.FillTheBag(1, 1, 2);
             Player player = new Player("Player");
             player.GetTilesFromBag(2);
@@ -81,7 +85,7 @@ Placed this turn:
         [TestMethod]
         public void ListPlacedTiles()
         {
-            Bag.EmptyTheBag();
+            Game.ResetGame();
             Bag.FillTheBag(1, 1, 2);
             Player player = new Player("Player");
             player.GetTilesFromBag(2);
@@ -106,7 +110,7 @@ Placed this turn:
         [TestMethod]
         public void MaxPlaceableTiles_1()
         {
-            Bag.EmptyTheBag();
+            Game.ResetGame();
             Bag.FillTheBag(6, 1, 1);
             Player player = new Player("Player");
             player.GetTilesFromBag(6);
@@ -117,7 +121,7 @@ Placed this turn:
         [TestMethod]
         public void MaxPlaceableTiles_2()
         {
-            Bag.EmptyTheBag();
+            Game.ResetGame();
             Bag.FillTheBag(3, 1, 6);
             Player player = new Player("Player");
             player.GetTilesFromBag(6);
@@ -128,6 +132,7 @@ Placed this turn:
         [TestMethod]
         public void ReturnTileToBag()
         {
+            Game.ResetGame();
             Bag.FillTheBag(1, 1, 1);
             var bagTiles = new StringWriter();
             Console.SetOut(bagTiles);
@@ -163,8 +168,7 @@ Placed this turn:
         [TestMethod]
         public void PlaceTile_ByRef()
         {
-            Grid.Empty();
-            Bag.EmptyTheBag();
+            Game.ResetGame();
             Bag.FillTheBag(6, 6, 3);
             Player p1 = new Player(true);
             Tile copyOfTile = p1.tilesInHand[0];
@@ -176,7 +180,7 @@ Placed this turn:
         [TestMethod]
         public void CalculateTurnScore_horizontal()
         {
-            Grid.Empty();
+            Game.ResetGame();
             Bag.FillTheBag(1, 6, 1);
             Player player = new Player(false);
             player.GetTilesFromBag(5);
@@ -188,13 +192,14 @@ Placed this turn:
 
             //Menu.DrawGrid(10,10);
 
-            Assert.AreEqual(5, Game.CalculateTurnScore2(player));
+            Assert.AreEqual(5, Game.CalculateTurnScore(player));
             
         }
 
         [TestMethod]
         public void GetPlacementDirection_H()
         {
+            Game.ResetGame();
             Bag.FillTheBag(1, 6, 1);
             Player player = new Player(false);
             player.GetTilesFromBag(5);
@@ -211,6 +216,7 @@ Placed this turn:
         [TestMethod]
         public void GetPlacementDirection_V()
         {
+            Game.ResetGame();
             Bag.FillTheBag(1, 6, 1);
             Player player = new Player(false);
             player.GetTilesFromBag(5);
@@ -226,6 +232,7 @@ Placed this turn:
         [TestMethod]
         public void GetPlacementDirection_Single()
         {
+            Game.ResetGame();
             Bag.FillTheBag(1, 6, 1);
             Player player = new Player(false);
             player.GetTilesFromBag(1);
@@ -241,7 +248,7 @@ Placed this turn:
         [TestMethod]
         public void CalculateTurnScore_vertical()
         {
-            Grid.Empty();
+            Game.ResetGame();
             Bag.FillTheBag(1, 6, 1);
             Player player = new Player(false);
             player.GetTilesFromBag(5);
@@ -253,14 +260,14 @@ Placed this turn:
 
             //Menu.DrawGrid(10,10);
 
-            Assert.AreEqual(5, Game.CalculateTurnScore2(player));
+            Assert.AreEqual(5, Game.CalculateTurnScore(player));
 
         }
 
         [TestMethod]
         public void AddGetScore()
         {
-            Grid.Empty();
+            Game.ResetGame();
             Bag.FillTheBag(6, 1, 1); 
             Player player = new Player(true);
             player.PlaceTile(5, 0, 1);

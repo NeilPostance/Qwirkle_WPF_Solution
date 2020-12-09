@@ -18,14 +18,20 @@ namespace Qwirkle_WPF
         public static void EndTurn()
         {
             
-            int turnScore = CalculateTurnScore2(CurrentPlayer);
+            int turnScore = CalculateTurnScore(CurrentPlayer);
             Console.WriteLine($"{CurrentPlayer} has scored {turnScore} this turn.");
             CurrentPlayer.AddScore(turnScore);
             CurrentPlayer.RefillHand();
             NextPlayer();
         }
 
-   
+        public static void ResetGame()
+        {
+            ListOfPlayers.Clear();
+            ListOfOrderedPlayers.Clear();
+            Grid.Empty();
+            Bag.EmptyTheBag();
+        }
 
 
         public static void DeterminePlayerOrder()
@@ -265,7 +271,7 @@ namespace Qwirkle_WPF
         }
 
 
-        public static int CalculateTurnScore2(Player player)
+        public static int CalculateTurnScore(Player player)
         {
             int tempScore;
             if (player.placedTiles.Count > 0)
