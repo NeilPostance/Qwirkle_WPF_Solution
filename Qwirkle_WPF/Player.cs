@@ -308,22 +308,31 @@ namespace Qwirkle_WPF
             return this.score;
         }
 
-        public char GetPlacementDirection()
+        public EnumAxis GetPlacementDirection()
         {
             if (placedTiles.Count > 1)
             {
                 var (r1, c1) = placedTiles[0].GridXref;
                 var (r2, c2) = placedTiles[1].GridXref;
                 if (r1 == r2)
-                    return 'R';
+                {
+                    Console.WriteLine("Determined that the tiles have been placed along a row.");
+                    return EnumAxis.Horizontal;
+                }
                 else if (c1 == c2)
-                    return 'C';
+                {
+                    Console.WriteLine("Determined that the tiles have been placed along a column.");
+                    return EnumAxis.Vertical;
+                }
                 else
-                    return 'X';
+                {
+                    return EnumAxis.None;
+                }       
             }
             else
             {
-                return 'R';
+                Console.WriteLine("A single tile has been placed, so use row");
+                return EnumAxis.Horizontal;
             }
         }
 
@@ -341,8 +350,34 @@ namespace Qwirkle_WPF
                 Console.WriteLine($"The hand is full, no need to get any additional tiles.");
                 return 0;
             }
-                
-            
+        }
+
+        public void OrderTilesByColour()
+        {
+            var orderedTilesInHand = tilesInHand.OrderBy(t => t.Colour).ToList();
+            foreach (Tile t in tilesInHand)
+            {
+                Console.WriteLine($"PreSort {t.Colour}:{t.Shape}");
+            }
+            foreach (Tile t in orderedTilesInHand)
+            {
+                Console.WriteLine($"PostSort {t.Colour}:{t.Shape}");
+            }
+            tilesInHand = orderedTilesInHand;
+        }
+
+        public void OrderTilesByShape()
+        {
+            var orderedTilesInHand = tilesInHand.OrderBy(t => t.Shape).ToList();
+            foreach (Tile t in tilesInHand)
+            {
+                Console.WriteLine($"PreSort {t.Colour}:{t.Shape}");
+            }
+            foreach (Tile t in orderedTilesInHand)
+            {
+                Console.WriteLine($"PostSort {t.Colour}:{t.Shape}");
+            }
+            tilesInHand = orderedTilesInHand;
         }
     }
 }

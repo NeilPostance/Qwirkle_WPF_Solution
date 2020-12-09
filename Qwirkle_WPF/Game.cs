@@ -280,20 +280,26 @@ namespace Qwirkle_WPF
                 //calculate the placed tile direction first
                 switch (player.GetPlacementDirection())
                 {
-                    case 'R':
-                        Console.WriteLine($"The tiles has been placed along a row. Calculating that direction first.");
+                    case EnumAxis.Horizontal:
+                        Console.WriteLine($"The tiles have been placed along a row. Calculating that direction first.");
                         int caseRRowScore = CountScoringTilesInLine(player.placedTiles[0], EnumAxis.Horizontal);
                         if (caseRRowScore == 6)
+                        {
                             caseRRowScore += 6;
-                        int caseRColumnScore = CountScoringTilesPerpendicular(player, EnumAxis.Vertical);
+                            Console.WriteLine("Direct Qwirkle! (Row)");
+                        }
+                        int caseRColumnScore = CountScoringTilesPerpendicular(player, EnumAxis.Vertical); //then calculate the scores at tangents to the placed tile direction
                         tempScore = caseRRowScore + caseRColumnScore;
                         break;
-                    case 'C':
-                        Console.WriteLine($"The tiles has been placed along a column. Calculating that direction first.");
+                    case EnumAxis.Vertical:
+                        Console.WriteLine($"The tiles have been placed along a column. Calculating that direction first.");
                         int caseCColumnScore = CountScoringTilesInLine(player.placedTiles[0], EnumAxis.Vertical);
                         if (caseCColumnScore == 6)
+                        {
                             caseCColumnScore += 6;
-                        int caseCRowScore = CountScoringTilesPerpendicular(player, EnumAxis.Horizontal);
+                            Console.WriteLine("Direct Qwirkle! (Column)");
+                        }   
+                        int caseCRowScore = CountScoringTilesPerpendicular(player, EnumAxis.Horizontal); //then calculate the scores at tangents to the placed tile direction
                         tempScore = caseCRowScore + caseCColumnScore;
                         break;
                     default:
@@ -365,17 +371,18 @@ namespace Qwirkle_WPF
 
             foreach (Tile tile in player.placedTiles)
             {
-
                 //get the position of the tile, and look in the specified direction to see how many tiles it touches. If it doesn't touch any, the perpendicular score for that tile is 0;
                 int tilePerpendicularScore = CountScoringTilesInLine(tile, direction);
                 if (tilePerpendicularScore > 1 && tilePerpendicularScore < 6)
                     perpendicularScore += tilePerpendicularScore;
                 else if (tilePerpendicularScore == 6)
+                {
                     perpendicularScore += 12;
+                    Console.WriteLine("Tangent Qwirkle!");
+                }
                 else
                     continue;
             }
-
             return perpendicularScore;
         }
 
